@@ -3,8 +3,8 @@ import { Segment, Button, List } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import Search from './Search';
-import User from './User';
+import Search from '../components/Search';
+import User from '../components/User';
 import PropTypes from 'prop-types';
 
 const mapStateToProps = state => ({

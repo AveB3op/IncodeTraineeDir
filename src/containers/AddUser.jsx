@@ -7,6 +7,7 @@ import {addUser} from '../redux/action/actionCreators';
 const mapDispatchToProps = dispatch => ({
     onAddUser:(userData)=>{
         dispatch(addUser(userData));
+        return true;
     }
 });
 
@@ -23,8 +24,9 @@ class AddUser extends Component {
 
     addUser(e) {
         let userData = this.formObject(e.target);
-        this.props.onAddUser(userData);
-        this.props.history.push('/');
+        if(this.props.onAddUser(userData)){
+            this.props.history.push('/');
+        }
     }
 
     formObject(form) {
