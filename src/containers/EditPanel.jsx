@@ -1,16 +1,31 @@
 import React,{ Component } from 'react';
-import {Segment } from 'semantic-ui-react';
-import EditUserForm from '../components/EditUserForm.jsx';
+import { Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import EditUserForm from '../components/EditUserForm.jsx';
+import { editUser } from '../redux/action/actionCreators';
 
+const mapDispatchToProps = dispatch => ({
+    onEditUser:(userData,id)=>{
+        dispatch(editUser(userData,id));
+    }
+});
+
+const mapStateToProps = state =>({
+    data: state.data
+});
 class EditPanel extends Component {
     constructor(props){
         super(props);
         this.editUser = this.editUser.bind(this);
     }
-
+    displayUser(id){
+        return this.props.data.find((el)=>{
+            return el.address.zipCode === id;
+        });
+    }
     editUser(e){
-        this.props.editUser(this.props.match.params.id, this.formObject(e.target));
+        this.props.onEditUser(this.props.match.params.id, this.formObject(e.target));
         this.props.history.push('/');
     }
     formObject(form){
@@ -40,7 +55,7 @@ class EditPanel extends Component {
 
         return (
             <Segment>
-                <EditUserForm onEditUser = {this.editUser} default = {this.props.displayUser(this.props.match.params.id)}/>
+                <EditUserForm onEditUser = {this.editUser} default = {this.displayUser(this.props.match.params.id)}/>
             </Segment>
         );
     }
@@ -48,7 +63,11 @@ class EditPanel extends Component {
 EditPanel.propTypes={
     match:PropTypes.object,
     history:PropTypes.object,
-    editUser:PropTypes.func,
-    displayUser:PropTypes.func
+    onEditUser:PropTypes.func,
+    displayUser:PropTypes.func,
+    data:PropTypes.array
 };
-export default EditPanel;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EditPanel);

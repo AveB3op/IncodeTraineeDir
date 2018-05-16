@@ -1,10 +1,16 @@
 import React,{ Component } from 'react';
 import { Segment, Button, List } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import Search from './Search';
 import User from './User';
 import PropTypes from 'prop-types';
+
+const mapStateToProps = state => ({
+    data: state.data
+});
+
 class SearchPane extends Component {
     constructor(){
         super();
@@ -53,4 +59,7 @@ SearchPane.propTypes = {
     data:PropTypes.array,
     select:PropTypes.func
 };
-export default SearchPane;
+export default connect(
+    mapStateToProps,
+    null
+)(SearchPane);
