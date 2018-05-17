@@ -26,6 +26,7 @@ class SearchPane extends Component {
     }
     componentDidMount(){
         this.onSearch= _.debounce(this.onSearch,500);
+        this.props.onSearch('');
     }
 
     onSearch(input) {

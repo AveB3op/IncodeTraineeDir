@@ -10,7 +10,7 @@ export const history = createHistory();
 const middleware = routerMiddleware(history);
 
 const store = createStore(rootReducer,
-    composeWithDevTools(applyMiddleware(middleware))
+    composeWithDevTools(applyMiddleware(middleware),applyMiddleware(ReduxThunk))
 );
 
 export default store;
