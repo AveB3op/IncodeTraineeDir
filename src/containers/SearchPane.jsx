@@ -20,13 +20,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class SearchPane extends Component {
-    constructor(){
-        super();
-        this.state = {userList:[]};
-        this.onSearch = this.onSearch.bind(this);
-    }
     componentDidMount(){
-        this.setState({...this.state,userList:this.props.data});
         this.onSearch= _.debounce(this.onSearch,500);
     }
     onSearch(input) {

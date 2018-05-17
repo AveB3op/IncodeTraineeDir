@@ -15,16 +15,11 @@ const mapDispatchToProps = dispatch => ({
 class AddUser extends Component {
     constructor() {
         super();
-        if (!this.state) {
-            this.state = {
-                data: {}
-            };
-        }
         this.addUser = this.addUser.bind(this);
     }
 
     addUser(e) {
-        this.formObject(e.target);
+        this.props.onAddUser(this.formObject(e.target));
     }
 
     formObject(form) {
@@ -57,7 +52,8 @@ class AddUser extends Component {
 
 AddUser.propTypes={
     onAddUser:PropTypes.func,
-    history: PropTypes.object
+    history: PropTypes.object,
+
 };
 export default connect(
     null,
