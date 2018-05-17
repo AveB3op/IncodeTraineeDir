@@ -1,5 +1,5 @@
 import data from '../../clients.json';
-import {ADD_USER, DELETE_USER, EDIT_USER} from '../action/actionTypes';
+import {ADD_USER, DELETE_USER, EDIT_USER } from '../action/actionTypes';
 
 const initialState = data;
 

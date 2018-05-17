@@ -11,7 +11,6 @@ const middleware = routerMiddleware(history);
 
 const store = createStore(rootReducer,
     composeWithDevTools(applyMiddleware(middleware))
-    // other store enhancers if any
 );
 
 export default store;
