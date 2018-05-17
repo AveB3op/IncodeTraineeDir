@@ -17,7 +17,6 @@ class AddUser extends Component {
         super();
         this.addUser = this.addUser.bind(this);
     }
-
     addUser(e) {
         this.props.onAddUser(this.formObject(e.target));
     }

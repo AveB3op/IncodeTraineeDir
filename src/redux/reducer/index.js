@@ -5,7 +5,7 @@ import searchReducer from './searchReducer';
 
 const rootReducer = combineReducers({
     data: userReducer,
-    filter:searchReducer, 
+    filter:searchReducer,
     router: routerReducer
 });
 

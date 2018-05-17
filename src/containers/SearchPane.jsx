@@ -20,12 +20,18 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class SearchPane extends Component {
+    constructor(props){
+        super(props);
+        this.onSearch = this.onSearch.bind(this);
+    }
     componentDidMount(){
         this.onSearch= _.debounce(this.onSearch,500);
     }
+
     onSearch(input) {
         this.props.onSearch(input);
     }
+
     render() {
         return (
             <Segment className="search-panel" inverted floated = 'left'>
