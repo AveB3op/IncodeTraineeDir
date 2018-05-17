@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Search from '../components/Search';
 import User from '../components/User';
-import {addSearchFilter} from '../redux/action/actionCreators';
+import {addSearchFilter, getUserData} from '../redux/action/actionCreators';
 import { getFilteredUserList} from '../selectors';
 
 const mapStateToProps = state => ({
@@ -16,13 +16,28 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onSearch:(input)=>{
         dispatch(addSearchFilter(input));
+    },
+    onLoading:()=>{
+        const asyncGetData = () => {
+            return dispatch => {
+                setTimeout(() => {
+                    //console.log('I got data');
+                    dispatch(getUserData());
+                }, 2000);
+            };
+        };
+        dispatch(asyncGetData());
     }
+
 });
 
 class SearchPane extends Component {
     constructor(props){
         super(props);
         this.onSearch = this.onSearch.bind(this);
+        if(!this.props.data[0]){
+            this.props.onLoading();
+        }
     }
     componentDidMount(){
         this.onSearch= _.debounce(this.onSearch,500);
@@ -54,7 +69,8 @@ class SearchPane extends Component {
 SearchPane.propTypes = {
     data:PropTypes.array,
     select:PropTypes.func,
-    onSearch:PropTypes.func
+    onSearch:PropTypes.func,
+    onLoading:PropTypes.func
 };
 export default connect(
     mapStateToProps,

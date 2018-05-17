@@ -1,7 +1,7 @@
 import data from '../../clients.json';
-import {ADD_USER, DELETE_USER, EDIT_USER } from '../action/actionTypes';
+import {ADD_USER, DELETE_USER, EDIT_USER, GET_USER_DATA } from '../action/actionTypes';
 
-const initialState = data;
+const initialState = [];
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -19,6 +19,8 @@ const userReducer = (state = initialState, action) => {
                 return el;
             }
         });
+    case GET_USER_DATA:
+        return data;
     default:
         return state;
     }

@@ -1,4 +1,4 @@
-import {ADD_USER, EDIT_USER, DELETE_USER, ADD_SEARCH_FILTER} from './actionTypes';
+import {ADD_USER, EDIT_USER, DELETE_USER, ADD_SEARCH_FILTER, GET_USER_DATA} from './actionTypes';
 
 export function addUser(userData) {
     return { type: ADD_USER, userData };
@@ -14,4 +14,8 @@ export function deleteUser(id) {
 
 export function addSearchFilter(filter) {
     return {type: ADD_SEARCH_FILTER, filter };
+}
+
+export function getUserData(){
+    return{type: GET_USER_DATA};
 }

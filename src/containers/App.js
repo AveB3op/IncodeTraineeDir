@@ -7,8 +7,8 @@ import UserInfo from './UserInfo';
 import AddUser from './AddUser';
 import EditPanel from './EditPanel';
 
-class App extends Component {
 
+class App extends Component {
     render() {
         return (
             <Container text className="App">
