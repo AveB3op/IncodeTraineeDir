@@ -2,12 +2,14 @@ import React,{ Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 import EditUserForm from '../components/EditUserForm.jsx';
 import { editUser } from '../redux/action/actionCreators';
 
 const mapDispatchToProps = dispatch => ({
     onEditUser:(userData,id)=>{
         dispatch(editUser(userData,id));
+        dispatch(push('/'));
     }
 });
 
@@ -26,7 +28,7 @@ class EditPanel extends Component {
     }
     editUser(e){
         this.props.onEditUser(this.props.match.params.id, this.formObject(e.target));
-        this.props.history.push('/');
+        // this.props.history.push('/');
     }
     formObject(form){
         return{

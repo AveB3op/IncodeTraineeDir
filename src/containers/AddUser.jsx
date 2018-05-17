@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import AddUserForm from '../components/AddUserForm.jsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import {addUser} from '../redux/action/actionCreators';
 
 const mapDispatchToProps = dispatch => ({
     onAddUser:(userData)=>{
         dispatch(addUser(userData));
-        return true;
+        dispatch(push('/'));
     }
 });
 
@@ -23,10 +24,7 @@ class AddUser extends Component {
     }
 
     addUser(e) {
-        let userData = this.formObject(e.target);
-        if(this.props.onAddUser(userData)){
-            this.props.history.push('/');
-        }
+        this.formObject(e.target);
     }
 
     formObject(form) {

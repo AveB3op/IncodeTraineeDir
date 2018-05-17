@@ -3,6 +3,7 @@ import { Button,Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 import InfoPanel from '../components/InfoPanel';
 import {deleteUser} from '../redux/action/actionCreators';
 
@@ -14,6 +15,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onDeleteUser:(id)=>{
         dispatch(deleteUser(id));
+        dispatch(push('/'));
     }
 });
 
@@ -26,7 +28,6 @@ class UserInfo extends Component {
     }
     deleteUser(){
         this.props.onDeleteUser(this.props.match.params.id);
-        this.props.history.push('/');
     }
     displayUser(id){
         return this.props.data.find((el)=>{

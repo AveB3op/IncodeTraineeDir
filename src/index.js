@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
-import store from './redux/store/store';
+import store,{ history } from './redux/store/store';
 
 ReactDOM.render(
     <Provider store = {store}>
-        <BrowserRouter>
+        <ConnectedRouter history = {history}>
             <App />
-        </BrowserRouter>
+        </ConnectedRouter>
     </Provider>
     , document.getElementById('root'));
 
