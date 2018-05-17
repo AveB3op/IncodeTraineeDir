@@ -31,10 +31,9 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-class SearchPane extends Component {
+class SearchPanel extends Component {
     constructor(props){
         super(props);
-        this.onSearch = this.onSearch.bind(this);
         if(!this.props.data[0]){
             this.props.onLoading();
         }
@@ -44,7 +43,7 @@ class SearchPane extends Component {
         this.props.onSearch('');
     }
 
-    onSearch(input) {
+    onSearch = (input)=>{
         this.props.onSearch(input);
     }
 
@@ -66,7 +65,7 @@ class SearchPane extends Component {
         );
     }
 }
-SearchPane.propTypes = {
+SearchPanel.propTypes = {
     data:PropTypes.array,
     select:PropTypes.func,
     onSearch:PropTypes.func,
@@ -75,4 +74,4 @@ SearchPane.propTypes = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SearchPane);
+)(SearchPanel);

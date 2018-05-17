@@ -17,18 +17,13 @@ const mapStateToProps = state =>({
     data: state.data
 });
 class EditPanel extends Component {
-    constructor(props){
-        super(props);
-        this.editUser = this.editUser.bind(this);
-    }
     displayUser(id){
         return this.props.data.find((el)=>{
             return el.address.zipCode === id;
         });
     }
-    editUser(e){
+    editUser=(e)=>{
         this.props.onEditUser(this.props.match.params.id, this.formObject(e.target));
-        // this.props.history.push('/');
     }
     formObject(form){
         return{

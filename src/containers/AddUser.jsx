@@ -13,11 +13,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class AddUser extends Component {
-    constructor() {
-        super();
-        this.addUser = this.addUser.bind(this);
-    }
-    addUser(e) {
+    addUser=(e)=>{
         this.props.onAddUser(this.formObject(e.target));
     }
 

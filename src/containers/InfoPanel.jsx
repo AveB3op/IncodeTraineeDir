@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
-import InfoPanel from '../components/InfoPanel';
+import UserInfo from '../components/UserInfo';
 import {deleteUser} from '../redux/action/actionCreators';
 
 const mapStateToProps = state => ({
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-class UserInfo extends Component {
+class InfoPanel extends Component {
     constructor(props){
         super(props);
         this.deleteUser = this.deleteUser.bind(this);
@@ -38,7 +38,7 @@ class UserInfo extends Component {
 
         return (
             <React.Fragment>
-                <InfoPanel currentUser = {this.displayUser(this.props.match.params.id)}/>
+                <UserInfo currentUser = {this.displayUser(this.props.match.params.id)}/>
                 <Segment inverted floated = 'left'>
                     <Link to={'/user/edit/'+this.props.match.params.id}>
                         <Button color="yellow">Edit user</Button>
@@ -52,7 +52,7 @@ class UserInfo extends Component {
         );
     }
 }
-UserInfo.propTypes={
+InfoPanel.propTypes={
     match:PropTypes.object,
     history:PropTypes.object,
     displayUser:PropTypes.func,
@@ -62,4 +62,4 @@ UserInfo.propTypes={
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(UserInfo);
+)(InfoPanel);

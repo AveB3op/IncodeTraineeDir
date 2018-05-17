@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 import { Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-class InfoPanel extends Component {
+class UserInfo extends Component {
     render() {
         return (
             <Segment className="search-panel" inverted floated = 'left'>
@@ -43,7 +43,7 @@ class InfoPanel extends Component {
         );
     }
 }
-InfoPanel.propTypes = {
+UserInfo.propTypes = {
     currentUser:PropTypes.object
 };
-export default InfoPanel;
+export default UserInfo;
