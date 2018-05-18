@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 import { Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+
 class UserInfo extends Component {
   static defaultProps = {
       currentUser:{
           general:{
-              firstName: 'user not found',
+              firstName: 'Not',
               avatar:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Cucumber_BNC.jpg/220px-Cucumber_BNC.jpg',
-              lastName:''}
+              lastName:'found'}
       }
   }
   render() {

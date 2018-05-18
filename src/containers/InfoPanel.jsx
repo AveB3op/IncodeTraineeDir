@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import UserInfo from '../components/UserInfo';
 import {asyncDeleteUser} from '../redux/action/actionCreators';
 
-
-
 class InfoPanel extends Component {
     deleteUser=()=>{
         this.props.onDeleteUser(this.props.match.params.id);
@@ -24,9 +22,12 @@ class InfoPanel extends Component {
             <React.Fragment>
                 <UserInfo currentUser = {this.displayUser(this.props.match.params.id)}/>
                 <Segment inverted floated = 'left'>
-                    <Link to={'/user/edit/'+this.props.match.params.id}>
-                        <Button color="yellow">Edit user</Button>
-                    </Link>
+                    {this.displayUser(this.props.match.params.id)?
+                        <Link to={'/user/edit/'+this.props.match.params.id}>
+                            <Button color="yellow">Edit user</Button>
+                        </Link>
+                        :
+                        ''}
                     <Link to='/'>
                         <Button color="green">Back</Button>
                     </Link>

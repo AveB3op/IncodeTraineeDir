@@ -16,6 +16,7 @@ class SearchPanel extends Component {
             this.props.onLoading();
         }
     }
+
     render() {
         return (
             <Segment className="search-panel" inverted floated = 'left'>

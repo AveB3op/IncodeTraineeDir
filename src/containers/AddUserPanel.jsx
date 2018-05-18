@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {asyncAddUser} from '../redux/action/actionCreators';
 
-class AddUser extends Component {
+class AddUserPanel extends Component {
     addUser=(e)=>{
         this.props.onAddUser(this.formObject(e.target));
     }
@@ -38,7 +38,7 @@ class AddUser extends Component {
     }
 }
 
-AddUser.propTypes={
+AddUserPanel.propTypes={
     onAddUser:PropTypes.func,
     history: PropTypes.object,
 
@@ -51,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(AddUser);
+)(AddUserPanel);

@@ -4,11 +4,12 @@ import { Container } from 'semantic-ui-react';
 import './App.css';
 import SearchPanel from './SearchPanel';
 import InfoPanel from './InfoPanel';
-import AddUser from './AddUser';
+import AddUserPanel from './AddUserPanel';
 import EditPanel from './EditPanel';
 
 
 class App extends Component {
+
     render() {
         return (
             <Container text className="App">
@@ -16,7 +17,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path='/' component={SearchPanel}/>
                     <Route exact path='/user/profile/:id' component={InfoPanel}/>
-                    <Route exact path='/user/new' component={AddUser}/>
+                    <Route exact path='/user/new' component={AddUserPanel}/>
                     <Route exact path='/user/edit/:id' component={EditPanel}/>
                 </Switch>
 

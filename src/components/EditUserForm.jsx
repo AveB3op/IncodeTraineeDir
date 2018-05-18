@@ -9,7 +9,7 @@ class EditUserForm extends Component {
 
                 <Form.Field>
                     <label>First Name
-                        <input placeholder='First Name' name='fname' required defaultValue={this.props.default.general.firstName}/>
+                        <input placeholder='First Name' name='fname' required defaultValue={this.props.default.general.firstName||''}/>
                     </label>
                     <label>Last Name
                         <input placeholder='Last Name' name='lname' defaultValue={this.props.default.general.lastName}/>

@@ -33,7 +33,7 @@
 //     },
 //     editUser(id,newData){
 //         this.data = this.data.map((el)=>{
-//             return (id===el.address.zipCode)?newData:el;}); //TODO
+//             return (id===el.address.zipCode)?newData:el;}); 
 //     }
 // };
 //
