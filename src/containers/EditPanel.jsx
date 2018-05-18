@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import EditUserForm from '../components/EditUserForm.jsx';
 import { asyncEditUser } from '../redux/action/actionCreators';
@@ -55,9 +56,7 @@ EditPanel.propTypes={
 };
 
 const mapDispatchToProps = dispatch => ({
-    onEditUser:(userData,id)=>{
-        dispatch(asyncEditUser(userData,id));
-    }
+    onEditUser:bindActionCreators(asyncEditUser,dispatch)
 });
 
 const mapStateToProps = state =>({

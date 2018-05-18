@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { Button,Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import UserInfo from '../components/UserInfo';
 import {asyncDeleteUser} from '../redux/action/actionCreators';
@@ -43,14 +44,16 @@ InfoPanel.propTypes={
     data:PropTypes.array
 };
 
+InfoPanel.defaultProps={
+    data:[]
+};
+
 const mapStateToProps = state => ({
     data: state.data
 });
 
 const mapDispatchToProps = dispatch => ({
-    onDeleteUser:(id)=>{
-        dispatch(asyncDeleteUser(id));
-    }
+    onDeleteUser:bindActionCreators(asyncDeleteUser,dispatch)
 });
 
 export default connect(

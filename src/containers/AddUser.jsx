@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import AddUserForm from '../components/AddUserForm.jsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {asyncAddUser} from '../redux/action/actionCreators';
 
 class AddUser extends Component {
@@ -44,9 +45,7 @@ AddUser.propTypes={
 };
 
 const mapDispatchToProps = dispatch => ({
-    onAddUser:(userData)=>{
-        dispatch(asyncAddUser(userData));
-    }
+    onAddUser:bindActionCreators(asyncAddUser,dispatch)
 });
 
 export default connect(
