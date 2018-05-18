@@ -1,4 +1,3 @@
-import data from '../../clients.json';
 import {ADD_USER, DELETE_USER, EDIT_USER, GET_USER_DATA } from '../action/actionTypes';
 
 const initialState = [];
@@ -20,7 +19,7 @@ const userReducer = (state = initialState, action) => {
             }
         });
     case GET_USER_DATA:
-        return data;
+        return action.data;
     default:
         return state;
     }

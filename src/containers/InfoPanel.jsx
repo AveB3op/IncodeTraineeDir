@@ -3,33 +3,16 @@ import { Button,Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
 import UserInfo from '../components/UserInfo';
-import {deleteUser} from '../redux/action/actionCreators';
+import {asyncDeleteUser} from '../redux/action/actionCreators';
 
-const mapStateToProps = state => ({
-    data: state.data
-});
-
-
-const mapDispatchToProps = dispatch => ({
-    onDeleteUser:(id)=>{
-        dispatch(deleteUser(id));
-        dispatch(push('/'));
-    }
-});
 
 
 class InfoPanel extends Component {
-    constructor(props){
-        super(props);
-        this.deleteUser = this.deleteUser.bind(this);
-        this.displayUser = this.displayUser.bind(this);
-    }
-    deleteUser(){
+    deleteUser=()=>{
         this.props.onDeleteUser(this.props.match.params.id);
     }
-    displayUser(id){
+    displayUser=(id)=>{
         return this.props.data.find((el)=>{
             return el.address.zipCode === id;
         });
@@ -59,6 +42,17 @@ InfoPanel.propTypes={
     onDeleteUser:PropTypes.func,
     data:PropTypes.array
 };
+
+const mapStateToProps = state => ({
+    data: state.data
+});
+
+const mapDispatchToProps = dispatch => ({
+    onDeleteUser:(id)=>{
+        dispatch(asyncDeleteUser(id));
+    }
+});
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

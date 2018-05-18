@@ -2,15 +2,7 @@ import React, {Component} from 'react';
 import AddUserForm from '../components/AddUserForm.jsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import {addUser} from '../redux/action/actionCreators';
-
-const mapDispatchToProps = dispatch => ({
-    onAddUser:(userData)=>{
-        dispatch(addUser(userData));
-        dispatch(push('/'));
-    }
-});
+import {asyncAddUser} from '../redux/action/actionCreators';
 
 class AddUser extends Component {
     addUser=(e)=>{
@@ -50,6 +42,13 @@ AddUser.propTypes={
     history: PropTypes.object,
 
 };
+
+const mapDispatchToProps = dispatch => ({
+    onAddUser:(userData)=>{
+        dispatch(asyncAddUser(userData));
+    }
+});
+
 export default connect(
     null,
     mapDispatchToProps

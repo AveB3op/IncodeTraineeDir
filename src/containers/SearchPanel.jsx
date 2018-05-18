@@ -6,41 +6,17 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Search from '../components/Search';
 import User from '../components/User';
-import {addSearchFilter, getUserData} from '../redux/action/actionCreators';
+import {addSearchFilter, asyncGetData} from '../redux/action/actionCreators';
 import { getFilteredUserList} from '../selectors';
-
-const mapStateToProps = state => ({
-    data: getFilteredUserList(state)
-});
-
-const mapDispatchToProps = dispatch => ({
-    onSearch:(input)=>{
-        dispatch(addSearchFilter(input));
-    },
-    onLoading:()=>{
-        const asyncGetData = () => {
-            return dispatch => {
-                setTimeout(() => {
-                    //console.log('I got data');
-                    dispatch(getUserData());
-                }, 2000);
-            };
-        };
-        dispatch(asyncGetData());
-    }
-
-});
+const debounceDelay = 500;
 
 class SearchPanel extends Component {
-    constructor(props){
-        super(props);
+    componentDidMount(){
+        this.onSearch= _.debounce(this.onSearch,debounceDelay);
+        this.props.onSearch('');
         if(!this.props.data[0]){
             this.props.onLoading();
         }
-    }
-    componentDidMount(){
-        this.onSearch= _.debounce(this.onSearch,500);
-        this.props.onSearch('');
     }
 
     onSearch = (input)=>{
@@ -71,6 +47,21 @@ SearchPanel.propTypes = {
     onSearch:PropTypes.func,
     onLoading:PropTypes.func
 };
+
+const mapStateToProps = state => ({
+    data: getFilteredUserList(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+    onSearch:(input)=>{
+        dispatch(addSearchFilter(input));
+    },
+    onLoading:()=>{
+        dispatch(asyncGetData());
+    }
+
+});
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

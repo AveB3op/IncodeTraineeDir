@@ -2,22 +2,11 @@ import React,{ Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
 import EditUserForm from '../components/EditUserForm.jsx';
-import { editUser } from '../redux/action/actionCreators';
+import { asyncEditUser } from '../redux/action/actionCreators';
 
-const mapDispatchToProps = dispatch => ({
-    onEditUser:(userData,id)=>{
-        dispatch(editUser(userData,id));
-        dispatch(push('/'));
-    }
-});
-
-const mapStateToProps = state =>({
-    data: state.data
-});
 class EditPanel extends Component {
-    displayUser(id){
+    displayUser = (id)=>{
         return this.props.data.find((el)=>{
             return el.address.zipCode === id;
         });
@@ -64,6 +53,17 @@ EditPanel.propTypes={
     displayUser:PropTypes.func,
     data:PropTypes.array
 };
+
+const mapDispatchToProps = dispatch => ({
+    onEditUser:(userData,id)=>{
+        dispatch(asyncEditUser(userData,id));
+    }
+});
+
+const mapStateToProps = state =>({
+    data: state.data
+});
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps
