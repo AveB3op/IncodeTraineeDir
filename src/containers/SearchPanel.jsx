@@ -12,9 +12,7 @@ import getFilteredUserList from '../selectors';
 
 class SearchPanel extends Component {
   componentDidMount() {
-    if (!this.props.data.length) {
-      this.props.onLoading();
-    }
+    this.props.onLoading();
   }
 
   render() {
@@ -24,8 +22,8 @@ class SearchPanel extends Component {
         <List bulleted>
           {this.props.data.map(el => (
             <User
-              key={ el.address.zipCode }
-              id={ el.address.zipCode }
+              key={ el._id }
+              id={ el._id }
               user={ el.general }
               select={ this.props.select }
             />

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class UserInfo extends Component {
   render() {
     return (
+
       <Segment className="search-panel" inverted floated="left">
         <div className="general-info">
           {this.props.currentUser.general ? (
@@ -18,11 +19,11 @@ class UserInfo extends Component {
         <div className="contacts-info">
           {this.props.currentUser.contact ? (
             <div>
-             Email:
+              Email:
               {' '}
               {this.props.currentUser.contact.email}
               <br />
-             Phone:
+              Phone:
               {' '}
               {this.props.currentUser.contact.phone}
             </div>

@@ -8,6 +8,7 @@ module.exports = {
   },
   "rules": {
         'comma-dangle': 0,
+        'no-underscore-dangle':0,
         'no-param-reassign':0,
         'max-len':0,
         'import/no-extraneous-dependencies':0,

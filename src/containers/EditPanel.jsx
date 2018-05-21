@@ -7,7 +7,7 @@ import EditUserForm from '../components/EditUserForm';
 import { asyncEditUser } from '../redux/action/actionCreators';
 
 class EditPanel extends Component {
-    displayUser = id => this.props.data.find(el => el.address.zipCode === id)
+    displayUser = id => this.props.data.find(el => el._id === id)
 
     editUser=(e) => {
       this.form = e.target;
@@ -37,6 +37,7 @@ class EditPanel extends Component {
         }
       };
     }
+
     render() {
       return (
         <Segment>

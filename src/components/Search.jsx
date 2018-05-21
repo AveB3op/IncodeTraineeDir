@@ -8,7 +8,6 @@ const debounceDelay = 500;
 class Search extends Component {
   componentDidMount() {
     this.onSearch = _.debounce(this.props.onSearch, debounceDelay);
-    this.props.onSearch('');
   }
 
   Search = (e) => {
