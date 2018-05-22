@@ -7,7 +7,7 @@ import { Segment, Button, List } from 'semantic-ui-react';
 import Search from '../components/Search';
 import User from '../components/User';
 import { addSearchFilter, asyncGetData } from '../redux/action/actionCreators';
-import getFilteredUserList from '../selectors';
+// import getFilteredUserList from '../selectors';
 
 
 class SearchPanel extends Component {
@@ -18,13 +18,13 @@ class SearchPanel extends Component {
   render() {
     return (
       <Segment className="search-panel" inverted floated="left">
-        <Search onSearch={ this.props.onSearch } />
+        <Search onSearch={ this.props.onSearch } onLoading={ this.props.onLoading } />
         <List bulleted>
-          {this.props.data.map(el => (
+          {this.props.data.ids.map(el => (
             <User
-              key={ el._id }
-              id={ el._id }
-              user={ el.general }
+              key={ el }
+              id={ el }
+              user={ this.props.data.clients[el].general }
               select={ this.props.select }
             />
           ))}
@@ -46,7 +46,7 @@ SearchPanel.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  data: getFilteredUserList(state)
+  data: state.data
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -9,8 +9,7 @@ import { asyncDeleteUser, asyncGetUser } from '../redux/action/actionCreators';
 
 class InfoPanel extends Component {
   componentDidMount() {
-    console.log('test');
-    if (!this.displayUser()) {
+    if (!this.props.data.clients[this.props.match.params.id]) {
       this.props.getUser(this.props.match.params.id);
     }
   }
@@ -20,7 +19,7 @@ class InfoPanel extends Component {
       this.props.onDeleteUser(userId);
     }
 
-    displayUser = id => this.props.data.find(el => el._id === id)
+    displayUser = id => this.props.data.ids.find(el => el._id === id)
 
     render() {
       if (this.props.isLoading) {
@@ -32,9 +31,9 @@ class InfoPanel extends Component {
       }
       return (
         <React.Fragment>
-          <UserInfo currentUser={ this.displayUser(this.props.match.params.id) } />
+          <UserInfo currentUser={ this.props.data.clients[this.props.match.params.id] } />
           <Segment inverted floated="left">
-            {this.displayUser(this.props.match.params.id) ? (
+            {this.props.data.clients[this.props.match.params.id] ? (
               <Link to={ `/user/edit/${this.props.match.params.id}` }>
                 <Button color="yellow">
                   Edit user
@@ -59,7 +58,7 @@ class InfoPanel extends Component {
 InfoPanel.propTypes = {
   match: PropTypes.object,
   onDeleteUser: PropTypes.func,
-  data: PropTypes.array,
+  data: PropTypes.object,
   isLoading: PropTypes.bool,
   getUser: PropTypes.func
 };
@@ -70,7 +69,7 @@ InfoPanel.defaultProps = {
 
 const mapStateToProps = state => ({
   data: state.data,
-  isLoading: state.loading.isLoading
+  isLoading: state.data.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

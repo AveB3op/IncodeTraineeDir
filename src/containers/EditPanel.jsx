@@ -7,8 +7,6 @@ import EditUserForm from '../components/EditUserForm';
 import { asyncEditUser } from '../redux/action/actionCreators';
 
 class EditPanel extends Component {
-    displayUser = id => this.props.data.find(el => el._id === id)
-
     editUser=(e) => {
       this.form = e.target;
       this.props.onEditUser(this.props.match.params.id, this.formObject());
@@ -43,7 +41,7 @@ class EditPanel extends Component {
         <Segment>
           <EditUserForm
             onEditUser={ this.editUser }
-            default={ this.displayUser(this.props.match.params.id) }
+            default={ this.props.data.clients[this.props.match.params.id] }
           />
         </Segment>
       );

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getUserFilter = state => state.filter;
-const getUserList = state => state.data;
+const getUserFilter = state => state.data.filter;
+const getUserList = state => state.data.clients;
 
 const getFilteredUserList = createSelector(
   [getUserFilter, getUserList],

@@ -7,19 +7,29 @@ const debounceDelay = 500;
 
 class Search extends Component {
   componentDidMount() {
-    this.onSearch = _.debounce(this.props.onSearch, debounceDelay);
+    this.search = _.debounce(this.search, debounceDelay);
   }
 
-  Search = (e) => {
-    this.onSearch(e.target.value);
+  onSearch = (e) => {
+    this.searchInput = e.target.value;
+    this.search();
+  };
+
+  search = () => {
+    if (this.searchInput === '') {
+      this.props.onLoading();
+    } else {
+      this.props.onSearch(this.searchInput);
+    }
   }
 
   render() {
-    return (<Input icon="users" iconPosition="left" placeholder="Search users..." onChange={ this.Search } />);
+    return (<Input icon="users" iconPosition="left" placeholder="Search users..." onInput={ this.onSearch } />);
   }
 }
 
 Search.propTypes = {
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
+  onLoading: PropTypes.func
 };
 export default Search;

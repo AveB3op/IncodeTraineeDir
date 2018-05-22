@@ -1,16 +1,16 @@
 import { push } from 'react-router-redux';
 import { ADD_USER, EDIT_USER, DELETE_USER, GET_USER_DATA, GET_USER, LOADED } from './actionTypes';
+import { normalizeClientList, normalizeClient } from '../../schemas/clientsList';
+import url from './serverRoutes';
 
-const serverUrl = 'http://127.0.0.1:8080/';
-
-export function addUser(userData) {
-  return { type: ADD_USER, userData };
+export function addUser(client, id) {
+  return { type: ADD_USER, client, id };
 }
 
 export function asyncAddUser(userData) {
   return (dispatch) => {
     fetch(
-      `${serverUrl}addClient`,
+      url.addClient,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -18,7 +18,8 @@ export function asyncAddUser(userData) {
       }
     ).then(res => res.json())
       .then((resData) => {
-        dispatch(addUser(resData));
+        const normalizedClient = normalizeClient(resData);
+        dispatch(addUser(normalizedClient.client, normalizedClient.id));
         dispatch(push('/'));
       })
       .catch(err => console.log(err));
@@ -32,7 +33,7 @@ export function editUser(id, newUserData) {
 export function asyncEditUser(id, newUserData) {
   return (dispatch) => {
     fetch(
-      `${serverUrl}editClient/${id}`,
+      url.editClient + id,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -40,7 +41,8 @@ export function asyncEditUser(id, newUserData) {
       }
     ).then(res => res.json())
       .then((resData) => {
-        dispatch(editUser(resData));
+        const normalizedClient = normalizeClient(resData);
+        dispatch(editUser(normalizedClient.id, normalizedClient.client));
         dispatch(push('/'));
       })
       .catch(err => console.log(err));
@@ -55,7 +57,7 @@ export function asyncDeleteUser(id) {
   return (dispatch) => {
     console.log(id);
     fetch(
-      `${serverUrl}deleteClient/${id}`,
+      url.deleteClient + id,
       {
         method: 'GET',
         headers: { 'Content-Type': 'text/plain' },
@@ -68,36 +70,46 @@ export function asyncDeleteUser(id) {
   };
 }
 
-export function getUserData(data) {
-  return { type: GET_USER_DATA, data };
+export function getUserData(clients, ids) {
+  return { type: GET_USER_DATA, clients, ids };
 }
 
 // TODO
 export function addSearchFilter(filter) {
-  console.log(`${serverUrl}user/search/${filter}`);
+  console.log(url.searchClients + filter);
   return dispatch => (
 
     fetch(
-      `${serverUrl}user/search/${filter}`,
+      url.searchClients + filter,
       {
         method: 'GET'
       }
     ).then(res => res.json())
-      .then((clientList) => { dispatch(getUserData(clientList)); }));
+      .then(clients => normalizeClientList(clients))
+      .then((normalized) => {
+        dispatch(getUserData(normalized.clients, normalized.ids));
+      }));
 }
 // TODO
 
 export function asyncGetData() {
   return (dispatch) => {
-    fetch(`${serverUrl}getClients`, { method: 'GET' })
+    fetch(url.getAllClients, { method: 'GET' })
       .then(res => res.json())
-      .then((clientList) => { dispatch(getUserData(clientList)); })
-      .catch(err => console.log(err));
+      .then((clientList) => {
+        const normalizedClientList = normalizeClientList(clientList);
+        return normalizedClientList;
+      })
+      .then((normalizedList) => {
+        console.log(normalizedList);
+        dispatch(getUserData(normalizedList.clients, normalizedList.ids));
+      })
+      .catch(err => console.error(err));
   };
 }
 
-export function getUser(data) {
-  return { type: GET_USER, data };
+export function getUser(client, id) {
+  return { type: GET_USER, client, id };
 }
 
 export function loaded() {
@@ -105,13 +117,12 @@ export function loaded() {
 }
 
 export function asyncGetUser(id) {
-  console.log(id);
   return (dispatch) => {
-    fetch(`${serverUrl}getClient/${id}`, { method: 'GET' })
+    fetch(url.getClient + id, { method: 'GET' })
       .then(res => res.json())
       .then((client) => {
-        console.log(client);
-        dispatch(getUser(client));
+        const normalizedClient = normalizeClient(client);
+        dispatch(getUser(normalizedClient.client, normalizedClient.id));
         dispatch(loaded());
       })
       .catch(err => console.log(err));
