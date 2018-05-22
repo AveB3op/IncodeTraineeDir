@@ -7,12 +7,11 @@ import { Segment, Button, List } from 'semantic-ui-react';
 import Search from '../components/Search';
 import User from '../components/User';
 import { addSearchFilter, asyncGetData } from '../redux/action/actionCreators';
-// import getFilteredUserList from '../selectors';
 
 
 class SearchPanel extends Component {
   componentDidMount() {
-    this.props.onLoading();
+    if (!this.props.data.allDataLoaded) this.props.onLoading();
   }
 
   render() {
@@ -39,7 +38,7 @@ class SearchPanel extends Component {
   }
 }
 SearchPanel.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   select: PropTypes.func,
   onSearch: PropTypes.func,
   onLoading: PropTypes.func

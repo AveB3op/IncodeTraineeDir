@@ -125,6 +125,24 @@ export function asyncGetUser(id) {
         dispatch(getUser(normalizedClient.client, normalizedClient.id));
         dispatch(loaded());
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
+  };
+}
+
+export function asyncSignUp(userData) {
+  console.log(userData);
+  return (dispatch) => {
+    fetch(
+      url.signUp,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      }
+    ).then(res => res.json())
+      .then(() => {
+        dispatch(push('/'));
+      })
+      .catch(err => console.error(err));
   };
 }
