@@ -6,7 +6,7 @@ import SearchPanel from './SearchPanel';
 import InfoPanel from './InfoPanel';
 import AddUserPanel from './AddUserPanel';
 import EditPanel from './EditPanel';
-import LoginPanel from '../components/LoginPanel';
+import LoginPanel from './LoginPanel';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 

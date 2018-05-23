@@ -22,9 +22,7 @@ export function asyncAddClient(userData) {
       }
       return res.json();
     })
-      .then((resData) => {
-        const normalizedClient = normalizeClient(resData);
-        dispatch(addUser(normalizedClient.client, normalizedClient.id));
+      .then(() => {
         dispatch(push('/'));
       })
       .catch((err) => {
@@ -34,6 +32,7 @@ export function asyncAddClient(userData) {
 }
 
 export function editUser(id, newUserData) {
+  console.log('Edituser');
   return { type: EDIT_USER, newUserData, id };
 }
 
@@ -52,9 +51,7 @@ export function asyncEditUser(id, newUserData) {
       }
       return res.json();
     })
-      .then((resData) => {
-        const normalizedClient = normalizeClient(resData);
-        dispatch(editUser(normalizedClient.id, normalizedClient.client));
+      .then(() => {
         dispatch(push('/'));
       })
       .catch((err) => {
@@ -82,7 +79,6 @@ export function asyncDeleteUser(id) {
       }
       console.log(res.text);
       dispatch(push('/'));
-      dispatch(deleteUser(id));
     })
       .catch((err) => {
         alert(`You must be admin. Error code:${err}`);

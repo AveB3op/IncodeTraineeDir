@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Segment, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-class LoginPanel extends Component {
+class Login extends Component {
   logout = () => {
     localStorage.removeItem('token');
     this.forceUpdate();
@@ -38,4 +38,4 @@ class LoginPanel extends Component {
   }
 }
 
-export default LoginPanel;
+export default Login;

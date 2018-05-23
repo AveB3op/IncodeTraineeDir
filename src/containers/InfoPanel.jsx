@@ -29,6 +29,13 @@ class InfoPanel extends Component {
           </div>
         );
       }
+      if (!this.props.data.clients[this.props.match.params.id]) {
+        return (
+          <div>
+          User not found.
+          </div>
+        );
+      }
       return (
         <React.Fragment>
           <UserInfo currentUser={ this.props.data.clients[this.props.match.params.id] } />
