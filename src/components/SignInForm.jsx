@@ -3,30 +3,26 @@ import { Button, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // TODO
-class signInForm extends Component {
+class SignInForm extends Component {
   render() {
     return (
-      <Form onSubmit={ this.props.onAddUser }>
+      <Form onSubmit={ this.props.onSubmit }>
 
         <Form.Field>
           <label>
-            First Name
-            <input placeholder="First Name" name="fname" required />
+            E-mail
+            <input type="email" placeholder="E-mail" name="email" required />
           </label>
           <label>
-            Last Name
-            <input placeholder="Last Name" name="lname" />
-          </label>
-          <label>
-            Avatar link
-            <input placeholder="link" name="avatar" />
+            Password
+            <input placeholder="password" name="password" required />
           </label>
         </Form.Field>
 
 
         <Form.Field>
           <Button type="submit">
-            Accept
+            Login
           </Button>
           <Link to="/">
             <Button type="reset">
@@ -38,7 +34,7 @@ class signInForm extends Component {
     );
   }
 }
-signInForm.propTypes = {
-  onAddUser: PropTypes.func
+SignInForm.propTypes = {
+  onSubmit: PropTypes.func
 };
-export default signInForm;
+export default SignInForm;

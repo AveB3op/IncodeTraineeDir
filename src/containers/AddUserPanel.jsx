@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AddUserForm from '../components/AddUserForm';
-import { asyncAddUser } from '../redux/action/actionCreators';
+import { asyncAddClient } from '../redux/action/actionCreators';
 
 
 class AddUserPanel extends Component {
@@ -46,7 +46,7 @@ AddUserPanel.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onAddUser: bindActionCreators(asyncAddUser, dispatch)
+  onAddUser: bindActionCreators(asyncAddClient, dispatch)
 });
 
 export default connect(

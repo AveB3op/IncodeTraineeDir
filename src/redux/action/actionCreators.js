@@ -7,22 +7,29 @@ export function addUser(client, id) {
   return { type: ADD_USER, client, id };
 }
 
-export function asyncAddUser(userData) {
+export function asyncAddClient(userData) {
   return (dispatch) => {
     fetch(
       url.addClient,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` },
         body: JSON.stringify(userData),
       }
-    ).then(res => res.json())
+    ).then((res) => {
+      if (res.status !== 200) {
+        throw res.status;
+      }
+      return res.json();
+    })
       .then((resData) => {
         const normalizedClient = normalizeClient(resData);
         dispatch(addUser(normalizedClient.client, normalizedClient.id));
         dispatch(push('/'));
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        alert(`Forbidden. Error code:${err}`);
+      });
   };
 }
 
@@ -36,16 +43,23 @@ export function asyncEditUser(id, newUserData) {
       url.editClient + id,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` },
         body: JSON.stringify(newUserData),
       }
-    ).then(res => res.json())
+    ).then((res) => {
+      if (res.status !== 200) {
+        throw res.status;
+      }
+      return res.json();
+    })
       .then((resData) => {
         const normalizedClient = normalizeClient(resData);
         dispatch(editUser(normalizedClient.id, normalizedClient.client));
         dispatch(push('/'));
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        alert(`Forbidden. Error code:${err}`);
+      });
   };
 }
 
@@ -60,13 +74,19 @@ export function asyncDeleteUser(id) {
       url.deleteClient + id,
       {
         method: 'GET',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'text/plain', Authorization: `Bearer ${localStorage.token}` },
       }
     ).then((res) => {
+      if (res.status !== 200) {
+        throw res.status;
+      }
       console.log(res.text);
       dispatch(push('/'));
       dispatch(deleteUser(id));
-    });
+    })
+      .catch((err) => {
+        alert(`You must be admin. Error code:${err}`);
+      });
   };
 }
 
@@ -139,8 +159,34 @@ export function asyncSignUp(userData) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
       }
-    ).then(res => res.json())
-      .then(() => {
+    ).then(res => res.text())
+      .then((resText) => {
+        console.log(resText);
+        localStorage.setItem('token', resText);
+        dispatch(push('/'));
+      })
+      .catch(err => console.error(err));
+  };
+}
+
+export function asyncSignIn(userData) {
+  console.log(userData);
+  return (dispatch) => {
+    fetch(
+      url.signIn,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      }
+    ).then((res) => {
+      if (res.status === 200) {
+        return res.text();
+      }
+      throw res.text;
+    })
+      .then((token) => {
+        localStorage.setItem('token', token);
         dispatch(push('/'));
       })
       .catch(err => console.error(err));

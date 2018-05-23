@@ -2,24 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { addSearchFilter, asyncGetData } from '../redux/action/actionCreators';
-
+import { asyncSignIn } from '../redux/action/actionCreators';
+import SignInForm from '../components/SignInForm';
 // // TODO:
 
-class signIn extends Component {
-  componentDidMount() {
-    if (!this.props.data.allDataLoaded) this.props.onLoading();
+class SignIn extends Component {
+  onSubmit = (e) => {
+    this.form = e.target;
+    this.props.onSignIn(this.formObject());
   }
 
-  render() {
-    return (
-      <div />
-    );
-  }
+    formObject = () => ({
+      email: this.form.email.value,
+      password: this.form.password.value
+    });
+
+
+    render() {
+      return (
+        <SignInForm onSubmit={ this.onSubmit } />
+      );
+    }
 }
-signIn.propTypes = {
-  data: PropTypes.object,
-  onLoading: PropTypes.func
+SignIn.propTypes = {
+  onSignIn: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -27,11 +33,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSearch: bindActionCreators(addSearchFilter, dispatch),
-  onLoading: bindActionCreators(asyncGetData, dispatch)
+  onSignIn: bindActionCreators(asyncSignIn, dispatch)
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(signIn);
+)(SignIn);

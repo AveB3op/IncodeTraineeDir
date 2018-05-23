@@ -4,8 +4,9 @@ const url = {
   getClient: `${serverUrl}/user/get/id/`,
   addClient: `${serverUrl}/user/add`,
   deleteClient: `${serverUrl}/user/delete/`,
-  searchClients: `${serverUrl}/user/search/`,
+  searchClients: `${serverUrl}/user/get/search/`,
   editClient: `${serverUrl}/user/edit/`,
-  signUp: `${serverUrl}/user/signup`
+  signUp: `${serverUrl}/user/signup`,
+  signIn: `${serverUrl}/user/signin`
 };
 export default url;
