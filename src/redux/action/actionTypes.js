@@ -6,3 +6,5 @@ export const GET_CLIENT_DATA = 'GET_CLIENT_DATA';
 export const GET_CLIENT = 'GET_CLIENT';
 export const LOADED = 'LOADED';
 export const SEARCH = 'SEARCH';
+export const GET_USER_LIST = 'GET_USER_LIST';
+export const SWITCH_STATUS = 'SWITCH_STATUS';

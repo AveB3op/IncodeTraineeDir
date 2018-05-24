@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Segment, Button, List } from 'semantic-ui-react';
 import Search from '../components/Search';
-import User from '../components/User';
+import Client from '../components/Client';
 import { addSearchFilter, asyncGetData } from '../redux/action/actionCreators';
 
 
@@ -20,10 +20,10 @@ class SearchPanel extends Component {
         <Search onSearch={ this.props.onSearch } onLoading={ this.props.onLoading } />
         <List bulleted>
           {this.props.data.ids.map(el => (
-            <User
+            <Client
               key={ el }
               id={ el }
-              user={ this.props.data.clients[el].general }
+              client={ this.props.data.clients[el].general }
               select={ this.props.select }
             />
           ))}

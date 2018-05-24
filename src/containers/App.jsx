@@ -9,6 +9,7 @@ import EditPanel from './EditPanel';
 import LoginPanel from './LoginPanel';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import UserListPanel from './UserListPanel';
 
 class App extends Component {
   render() {
@@ -23,7 +24,7 @@ class App extends Component {
           <Route exact path="/signup" component={ SignUp } />
           <Route exact path="/login" component={ SignIn } />
         </Switch>
-
+        <UserListPanel />
       </Container>);
   }
 }

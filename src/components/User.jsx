@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import { List, Image } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Image, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-class User extends Component {
+class UserList extends Component {
   render() {
     return (
-      <Link to={ `/user/profile/${this.props.id}` }>
-        <List.Item>
-          <Image height="50px" avatar src={ `${this.props.user.avatar}` } alt="ava" />
-          {` ${this.props.user.firstName} ${this.props.user.lastName}` }
-        </List.Item>
-      </Link>
+      <Segment inverted floated="left">
+        <Image height="50px" avatar src= "http://via.placeholder.com/350x150" alt="ava" />
+        {` ${this.props.user.email} ${this.props.user.userName}` }
+      </Segment>
     );
   }
 }
-
-User.propTypes = {
-  user: PropTypes.object,
-  id: PropTypes.string
+UserList.propTypes = {
+  user: PropTypes.object
 };
-export default User;
+
+export default UserList;

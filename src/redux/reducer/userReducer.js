@@ -1,4 +1,4 @@
-import {} from '../action/actionTypes';
+import { GET_USER_LIST, SWITCH_STATUS } from '../action/actionTypes';
 
 const initialState = {
   userList: [],
@@ -7,9 +7,10 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_USER":
+    case GET_USER_LIST:
+      return { ...state, userList: [...action.userList] };
+    case SWITCH_STATUS:
       return { ...state, clients: { ...state.clients, ...action.client }, ids: [...state.ids, action.id] };
-
     default:
       return state;
   }

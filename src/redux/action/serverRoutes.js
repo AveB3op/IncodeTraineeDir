@@ -1,6 +1,7 @@
 const serverUrl = process.env.REACT_APP_SERVER_HOST;
 const url = {
   getAllClients: `${serverUrl}/user/get/all`,
+  getUserList: `${serverUrl}/users/get/all`,
   getClient: `${serverUrl}/user/get/id/`,
   addClient: `${serverUrl}/user/add`,
   deleteClient: `${serverUrl}/user/delete/`,
