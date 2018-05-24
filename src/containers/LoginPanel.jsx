@@ -8,10 +8,12 @@ import Login from '../components/Login';
 
 class LoginPanel extends Component {
   componentDidMount= () => {
-    const socket = new WebSocket('ws:127.0.0.1:40510');
-
+    const socket = new WebSocket(`ws:${process.env.REACT_APP_WS_HOST}`);
+    this.socket = socket;
     socket.onopen = () => {
       console.log('Connected.');
+      this.socket.send('testMessage');
+      if (localStorage.token) { socket.send(localStorage.token); }
     };
 
     socket.onclose = (event) => {
@@ -39,6 +41,9 @@ class LoginPanel extends Component {
         case 'delete':
           this.props.onDeleteUser(data.id);
           break;
+        case 'message':
+          console.log(data);
+          break;
         default:
           console.log(event.type);
       }
@@ -47,6 +52,10 @@ class LoginPanel extends Component {
     socket.onerror = (error) => {
       alert(`Error : ${error.message}`);
     };
+  }
+
+  componentWillUnmount() {
+    this.socket.close();
   }
 
   render() {

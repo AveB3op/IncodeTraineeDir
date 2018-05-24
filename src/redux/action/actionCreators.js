@@ -1,10 +1,10 @@
 import { push } from 'react-router-redux';
-import { ADD_USER, EDIT_USER, DELETE_USER, GET_USER_DATA, GET_USER, LOADED } from './actionTypes';
+import { ADD_CLIENT, EDIT_CLIENT, DELETE_CLIENT, GET_CLIENT_DATA, GET_CLIENT, LOADED } from './actionTypes';
 import { normalizeClientList, normalizeClient } from '../../schemas/clientsList';
 import url from './serverRoutes';
 
 export function addUser(client, id) {
-  return { type: ADD_USER, client, id };
+  return { type: ADD_CLIENT, client, id };
 }
 
 export function asyncAddClient(userData) {
@@ -33,7 +33,7 @@ export function asyncAddClient(userData) {
 
 export function editUser(id, newUserData) {
   console.log('Edituser');
-  return { type: EDIT_USER, newUserData, id };
+  return { type: EDIT_CLIENT, newUserData, id };
 }
 
 export function asyncEditUser(id, newUserData) {
@@ -61,7 +61,7 @@ export function asyncEditUser(id, newUserData) {
 }
 
 export function deleteUser(id) {
-  return { type: DELETE_USER, id };
+  return { type: DELETE_CLIENT, id };
 }
 
 export function asyncDeleteUser(id) {
@@ -87,7 +87,7 @@ export function asyncDeleteUser(id) {
 }
 
 export function getUserData(clients, ids) {
-  return { type: GET_USER_DATA, clients, ids };
+  return { type: GET_CLIENT_DATA, clients, ids };
 }
 
 // TODO
@@ -125,7 +125,7 @@ export function asyncGetData() {
 }
 
 export function getUser(client, id) {
-  return { type: GET_USER, client, id };
+  return { type: GET_CLIENT, client, id };
 }
 
 export function loaded() {

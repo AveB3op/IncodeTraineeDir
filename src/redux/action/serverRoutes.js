@@ -1,4 +1,4 @@
-const serverUrl = 'http://127.0.0.1:8080';
+const serverUrl = process.env.REACT_APP_SERVER_HOST;
 const url = {
   getAllClients: `${serverUrl}/user/get/all`,
   getClient: `${serverUrl}/user/get/id/`,
@@ -9,4 +9,5 @@ const url = {
   signUp: `${serverUrl}/user/signup`,
   signIn: `${serverUrl}/user/signin`
 };
+console.log(url);
 export default url;
