@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
-import { ADD_CLIENT, EDIT_CLIENT, DELETE_CLIENT, GET_CLIENT_DATA, GET_CLIENT, LOADED } from './actionTypes';
+import { ADD_CLIENT, EDIT_CLIENT, DELETE_CLIENT, GET_CLIENT_DATA, GET_CLIENT, LOADED, ADD_SEARCH_FILTER } from './actionTypes';
 import { normalizeClientList, normalizeClient } from '../../schemas/clientsList';
-import { changeUser} from './userActionCreators';
+import { changeUser } from './userActionCreators';
 import url from './serverRoutes';
 
 export function addUser(client, id) {
@@ -91,23 +91,6 @@ export function getUserData(clients, ids) {
   return { type: GET_CLIENT_DATA, clients, ids };
 }
 
-// TODO
-export function addSearchFilter(filter) {
-  console.log(url.searchClients + filter);
-  return dispatch => (
-
-    fetch(
-      url.searchClients + filter,
-      {
-        method: 'GET'
-      }
-    ).then(res => res.json())
-      .then(clients => normalizeClientList(clients))
-      .then((normalized) => {
-        dispatch(getUserData(normalized.clients, normalized.ids));
-      }));
-}
-// TODO
 
 export function asyncGetData() {
   return (dispatch) => {
@@ -124,6 +107,35 @@ export function asyncGetData() {
       .catch(err => console.error(err));
   };
 }
+
+export function setSearchFilter(filter) {
+  return { type: ADD_SEARCH_FILTER, filter };
+}
+
+// TODO
+export function addSearchFilter(filter) {
+  console.log(url.searchClients + filter);
+
+  return dispatch => (
+    filter !== '' ? (
+      fetch(
+        url.searchClients + filter,
+        {
+          method: 'GET'
+        }
+      ).then(res => res.json())
+        .then(clients => normalizeClientList(clients))
+        .then((normalized) => {
+          dispatch(getUserData(normalized.clients, normalized.ids));
+          dispatch(setSearchFilter(filter));
+        }))
+      :
+      (asyncGetData())
+
+  );
+}
+
+// TODO
 
 export function getUser(client, id) {
   return { type: GET_CLIENT, client, id };

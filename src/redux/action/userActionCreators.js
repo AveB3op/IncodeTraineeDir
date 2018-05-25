@@ -23,8 +23,6 @@ export function asyncGetUserList() {
       return res.json();
     })
       .then((userData) => {
-        console.log(userData);
-        console.log(userData);
         dispatch(getUserList(userData.map(el => ({ ...el, online: false }))));
       })
       .catch((err) => {

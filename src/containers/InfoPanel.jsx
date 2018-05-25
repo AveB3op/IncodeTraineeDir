@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import { Button, Segment } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import UserInfo from '../components/UserInfo';
 import { asyncDeleteUser, asyncGetUser } from '../redux/action/actionCreators';
+
+const Segment = styled.div`
+  padding: 20px;
+  border: 1px solid #212121;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px black;
+  min-width: 250px;
+  margin: 15px;
+  text-align:center;
+  .button{
+    margin-left: 50px;
+    box-shadow: 0 0 8px 2px black;
+    padding: 15px 30px;
+  }
+`;
 
 class InfoPanel extends Component {
   componentDidMount() {
@@ -39,7 +55,7 @@ class InfoPanel extends Component {
       return (
         <React.Fragment>
           <UserInfo currentUser={ this.props.data.clients[this.props.match.params.id] } />
-          <Segment inverted floated="left">
+          <Segment>
             {this.props.data.clients[this.props.match.params.id] ? (
               <Link to={ `/user/edit/${this.props.match.params.id}` }>
                 <Button color="yellow">

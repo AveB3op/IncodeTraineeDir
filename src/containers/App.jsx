@@ -18,6 +18,7 @@ class App extends Component {
         <Header>
           <LoginPanel />
         </Header>
+
         <Main>
 
           <Switch>

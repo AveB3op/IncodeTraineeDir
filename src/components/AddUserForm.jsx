@@ -2,10 +2,19 @@ import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  box-shadow: 0 0 5px 1px black;
+`;
 
 class AddUserForm extends Component {
   render() {
     return (
+      <Wrapper>
       <Form onSubmit={ this.props.onAddUser }>
 
         <Form.Field>
@@ -75,6 +84,7 @@ class AddUserForm extends Component {
           </Link>
         </Form.Field>
       </Form>
+    </Wrapper>
     );
   }
 }

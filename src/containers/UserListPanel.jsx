@@ -50,15 +50,16 @@ class UserListPanel extends Component {
             this.props.onDeleteUser(data.id);
             break;
           case 'disconnected':
-            console.log(data);
             this.props.switchStatus(data.token, false);
             break;
           case 'connected':
-            console.log(data);
-            this.props.switchStatus(data.token, true);
+            this.props.users.userList.forEach((el) => {
+              if (el.email === data.token.email && !el.online) {
+                this.props.switchStatus(data.token, true);
+              }
+            });
             break;
           case 'connect':
-            console.log(data.email);
             this.props.onConnect(data.email);
             break;
           default:
@@ -77,7 +78,6 @@ class UserListPanel extends Component {
   }
 
   render() {
-    console.log(this.props.users);
     if (!this.props.users.isLoading) {
       return (
         <Segment>

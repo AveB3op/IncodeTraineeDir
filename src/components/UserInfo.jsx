@@ -1,16 +1,39 @@
 import React, { Component } from 'react';
-import { Image, Segment } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+const Segment = styled.div`
+  padding: 10px 20px;
+  border: 1px solid #212121;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px black;
+  min-width: 250px;
+  width: 60%;
+  margin: 10px 20%;
+  max-height: 95%;
+  font-size: 18px;
+  text-align: center;
+  .button{
+    margin-left: 50px;
+    box-shadow: 0 0 5px 2px black;
+  }
+  .avatar{
+    display: inline-block;
+    margin: 10px;
+  }
+`;
 
 class UserInfo extends Component {
   render() {
     return (
 
-      <Segment className="search-panel" inverted floated="left">
+      <Segment>
         <div className="general-info">
           {this.props.currentUser.general ? (
             <div>
               <Image avatar size="medium" src={ this.props.currentUser.general.avatar } alt="Avatar" />
+              <br />
               {`${this.props.currentUser.general.firstName} ${this.props.currentUser.general.lastName}`}
             </div>
           )

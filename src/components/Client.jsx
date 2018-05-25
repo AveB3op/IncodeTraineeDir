@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 const Wrapper = styled.div`
   padding: 5px;
   margin: 15px 5px;
-  box-shadow: 0 0 5px 2px black;
+  box-shadow: 0 0 5px 1px black;
+  background-color: #2f3139;
+  a{
+    color: #efefef;
+  }
 `;
 
 class Client extends Component {

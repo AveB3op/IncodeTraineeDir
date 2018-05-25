@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Main = styled.div`
   float:left;
-  width: 70%;
+  width: 60%;
   height: 90%;
   margin: 0 20px;
   padding: 5px 20px;
@@ -23,4 +23,10 @@ export const Header = styled.div`
   background-color: #2f2f38;
   box-shadow: 0 0 5px 2px black;
 
+`;
+export const LeftSide = styled.div`
+    width: 20%;
+
+    margin: 0 20px;
+    float:left;
 `;

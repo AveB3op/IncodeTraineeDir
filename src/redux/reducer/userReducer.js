@@ -14,7 +14,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userList: state.userList.map((el) => {
-          if (el.email === action.userData.email) {
+          if (el.email === action.userData.email && action.status !== el.status) {
             return { ...el, online: action.status };
           }
           return el;
