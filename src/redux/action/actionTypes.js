@@ -8,3 +8,4 @@ export const LOADED = 'LOADED';
 export const SEARCH = 'SEARCH';
 export const GET_USER_LIST = 'GET_USER_LIST';
 export const SWITCH_STATUS = 'SWITCH_STATUS';
+export const CHANGE_USER = 'CHANGE_USER';

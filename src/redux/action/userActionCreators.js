@@ -1,12 +1,12 @@
-import { GET_USER_LIST, SWITCH_STATUS } from './actionTypes';
+import { GET_USER_LIST, SWITCH_STATUS, CHANGE_USER } from './actionTypes';
 import url from './serverRoutes';
 
 export function getUserList(userList) {
   return { type: GET_USER_LIST, userList };
 }
 
-export function switchUserStatus(userData) {
-  return { type: SWITCH_STATUS, userData };
+export function switchUserStatus(userData, status) {
+  return { type: SWITCH_STATUS, userData, status };
 }
 
 export function asyncGetUserList() {
@@ -25,10 +25,13 @@ export function asyncGetUserList() {
       .then((userData) => {
         console.log(userData);
         console.log(userData);
-        dispatch(getUserList(userData));
+        dispatch(getUserList(userData.map(el => ({ ...el, online: false }))));
       })
       .catch((err) => {
         alert(`Forbidden. Error code:${err}`);
       });
   };
+}
+export function changeUser(email) {
+  return { type: CHANGE_USER, email };
 }

@@ -3,12 +3,26 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Segment, Button, List } from 'semantic-ui-react';
+import { Button, List } from 'semantic-ui-react';
+import styled from 'styled-components';
 import Search from '../components/Search';
 import Client from '../components/Client';
 import { addSearchFilter, asyncGetData } from '../redux/action/actionCreators';
 
-
+const Segment = styled.div`
+  padding: 10px 20px;
+  border: 1px solid;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px black;
+  min-width: 250px;
+  width: 30%;
+  margin: 5px;
+  max-height: 95%;
+  .list{
+    overflow-y: auto;
+    max-height: 600px;
+  }
+`;
 class SearchPanel extends Component {
   componentDidMount() {
     if (!this.props.data.allDataLoaded) this.props.onLoading();
@@ -16,9 +30,9 @@ class SearchPanel extends Component {
 
   render() {
     return (
-      <Segment className="search-panel" inverted floated="left">
+      <Segment>
         <Search onSearch={ this.props.onSearch } onLoading={ this.props.onLoading } />
-        <List bulleted>
+        <List>
           {this.props.data.ids.map(el => (
             <Client
               key={ el }

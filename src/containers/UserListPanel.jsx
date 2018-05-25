@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Segment } from 'semantic-ui-react';
+import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import UserList from '../components/UserList';
-import { getUserList, switchUserStatus, asyncGetUserList } from '../redux/action/userActionCreators';
+import { switchUserStatus, asyncGetUserList, changeUser } from '../redux/action/userActionCreators';
 import { addUser, editUser, deleteUser } from '../redux/action/actionCreators';
 import { normalizeClient } from '../schemas/clientsList';
+
+const Segment = styled.div`
+  padding: 10px;
+`;
 
 class UserListPanel extends Component {
   componentDidMount= () => {
     this.props.getUserList();
+
     const socket = new WebSocket(`ws:${process.env.REACT_APP_WS_HOST}`);
     this.socket = socket;
     socket.onopen = () => {
       console.log('Connected.');
-      this.socket.send('testMessage');
       if (localStorage.token) { socket.send(localStorage.token); }
     };
 
@@ -29,26 +33,37 @@ class UserListPanel extends Component {
     };
 
     socket.onmessage = (event) => {
-      let normalizedClient = {};
-      const data = JSON.parse(event.data);
-      if (data.client) {
-        normalizedClient = normalizeClient(data.client);
-      }
-      switch (data.type) {
-        case 'add':
-          this.props.onAddUser(normalizedClient.client, normalizedClient.id);
-          break;
-        case 'edit':
-          this.props.onEditUser(normalizedClient.id, normalizedClient.client);
-          break;
-        case 'delete':
-          this.props.onDeleteUser(data.id);
-          break;
-        case 'message':
-          console.log(data);
-          break;
-        default:
-          console.log(event.type);
+      if (!this.props.users.isLoading) {
+        let normalizedClient = {};
+        const data = JSON.parse(event.data);
+        if (data.client) {
+          normalizedClient = normalizeClient(data.client);
+        }
+        switch (data.type) {
+          case 'add':
+            this.props.onAddUser(normalizedClient.client, normalizedClient.id);
+            break;
+          case 'edit':
+            this.props.onEditUser(normalizedClient.id, normalizedClient.client);
+            break;
+          case 'delete':
+            this.props.onDeleteUser(data.id);
+            break;
+          case 'disconnected':
+            console.log(data);
+            this.props.switchStatus(data.token, false);
+            break;
+          case 'connected':
+            console.log(data);
+            this.props.switchStatus(data.token, true);
+            break;
+          case 'connect':
+            console.log(data.email);
+            this.props.onConnect(data.email);
+            break;
+          default:
+            console.log(event.type);
+        }
       }
     };
 
@@ -63,15 +78,15 @@ class UserListPanel extends Component {
 
   render() {
     console.log(this.props.users);
-    if (this.props.users.userList[0]) {
+    if (!this.props.users.isLoading) {
       return (
-        <Segment inverted floated="right">
-          <UserList userList={ this.props.users.userList } />
+        <Segment>
+          <UserList userList={ this.props.users.userList } currentUser={ this.props.users.user } />
         </Segment>
       );
     }
     return (
-      <Segment inverted floated="left">
+      <Segment>
         Loading...
       </Segment>
     );
@@ -84,7 +99,9 @@ UserListPanel.propTypes = {
   onAddUser: PropTypes.func,
   onEditUser: PropTypes.func,
   onDeleteUser: PropTypes.func,
-  getUserList: PropTypes.func
+  getUserList: PropTypes.func,
+  onConnect: PropTypes.func,
+  switchStatus: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -96,7 +113,8 @@ const mapDispatchToProps = dispatch => ({
   switchStatus: bindActionCreators(switchUserStatus, dispatch),
   onEditUser: bindActionCreators(editUser, dispatch),
   onDeleteUser: bindActionCreators(deleteUser, dispatch),
-  onAddUser: bindActionCreators(addUser, dispatch)
+  onAddUser: bindActionCreators(addUser, dispatch),
+  onConnect: bindActionCreators(changeUser, dispatch)
 });
 
 export default connect(

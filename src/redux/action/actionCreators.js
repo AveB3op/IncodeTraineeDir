@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux';
 import { ADD_CLIENT, EDIT_CLIENT, DELETE_CLIENT, GET_CLIENT_DATA, GET_CLIENT, LOADED } from './actionTypes';
 import { normalizeClientList, normalizeClient } from '../../schemas/clientsList';
+import { changeUser} from './userActionCreators';
 import url from './serverRoutes';
 
 export function addUser(client, id) {
@@ -159,6 +160,7 @@ export function asyncSignUp(userData) {
       .then((resText) => {
         console.log(resText);
         localStorage.setItem('token', resText);
+        dispatch(changeUser(userData.email));
         dispatch(push('/'));
       })
       .catch(err => console.error(err));
@@ -183,6 +185,7 @@ export function asyncSignIn(userData) {
     })
       .then((token) => {
         localStorage.setItem('token', token);
+        dispatch(changeUser(userData.email));
         dispatch(push('/'));
       })
       .catch(err => console.error(err));
