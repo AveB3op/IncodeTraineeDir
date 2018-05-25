@@ -22,7 +22,6 @@ const Wrapper = styled.div`
 
 class User extends Component {
   render() {
-    console.log(this.props.user);
     return (
       <Wrapper>
         <Image height="50px" avatar src="http://via.placeholder.com/350x150" alt="ava" />

@@ -50,7 +50,7 @@ class EditPanel extends Component {
 EditPanel.propTypes = {
   match: PropTypes.object,
   onEditUser: PropTypes.func,
-  data: PropTypes.array
+  data: PropTypes.object
 };
 
 const mapDispatchToProps = dispatch => ({
